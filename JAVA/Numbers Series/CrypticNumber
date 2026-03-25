@@ -1,0 +1,67 @@
+//1- divisble by 7 
+//2- not divisible by 5
+//3- not palindrome 
+//4- not contain repetitve digits 
+
+import java.util.*;
+
+public class CrypticNumber {
+    
+    // Function to check palindrome
+    static boolean isPalindrome(int num) {
+        int original = num;
+        int rev = 0;
+
+        while (num > 0) {
+            int digit = num % 10;
+            rev = rev * 10 + digit;
+            num /= 10;
+        }
+
+        return original == rev;
+    }
+
+    // Function to check repetitive digits
+    static boolean hasRepeatingDigits(int num) {
+        boolean[] digits = new boolean[10];
+
+        while (num > 0) {
+            int d = num % 10;
+
+            if (digits[d]) {
+                return true; // digit already seen
+            }
+
+            digits[d] = true;
+            num /= 10;
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int L = sc.nextInt();
+        int R = sc.nextInt();
+
+        boolean found = false;
+
+        for (int i = L; i <= R; i++) {
+
+            // Check all conditions
+            if (i % 7 == 0 &&           // divisible by 7
+                i % 5 != 0 &&           // not divisible by 5
+                !isPalindrome(i) &&     // not palindrome
+                !hasRepeatingDigits(i)  // no repeating digits
+            ) {
+                System.out.print(i + " ");
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.print(-1);
+        }
+    }
+}
